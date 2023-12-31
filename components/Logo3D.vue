@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 const counter = useState('counter', () => 9)
 </script>
 
