@@ -4,7 +4,6 @@ export default defineNuxtConfig({
     baseURL: '/rgb-124-2023/',
     buildAssetsDir: 'assets'
   },
-  ssr:false,
   modules: ["@tresjs/nuxt"],
   devtools: { enabled: true }
 })
