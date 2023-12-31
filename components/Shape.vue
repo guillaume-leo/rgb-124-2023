@@ -2,7 +2,7 @@
 
 <script setup>
 import  { AnimationUtils, LoopOnce }  from "three"
-const { scene: model, nodes, materials, animations } = await useGLTF('~/public/AnimationLogov4.glb')
+const { scene: model, nodes, materials, animations } = await useGLTF('/AnimationLogov4.glb')
 
 const props = defineProps({
   anim: {

@@ -17,7 +17,7 @@ const counter = useState('counter', () => 9)
       <OrbitControls enable-damping />
 
       <Suspense>
-        <Environment files="~/public/environment.hdr" />
+        <Environment files="/environment.hdr" />
       </Suspense>
 
       <Levioso rotation-factor="0.125" float-factor="0.75">
