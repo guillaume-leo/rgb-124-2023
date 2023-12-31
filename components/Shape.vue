@@ -2,14 +2,7 @@
 
 <script setup>
 import  { AnimationUtils, LoopOnce }  from "three"
-const { scene: model, nodes, materials, animations } = await useGLTF('/AnimationLogov4.glb')
-
-const props = defineProps({
-  anim: {
-    type: Number,
-    default: 9
-  }
-})
+const { scene: model, nodes, materials, animations } = await useGLTF('AnimationLogov4.glb')
 
 materials[''].roughness = 0
 const { actions, mixer } = useAnimations(animations, model)
