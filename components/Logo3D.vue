@@ -1,10 +1,19 @@
 <script setup>
-const counter = useState('counter', () => 9)
+
+
+  const counter = useState('counter', () => 9)
+  const is_animating = useState('is_animating')
+
+  const increment = () => {
+    if (!is_animating.value) {
+      counter.value = counter.value >= 9 ? 0 : counter.value + 1
+    }
+  }
 </script>
 
 <template>
   <ClientOnly>
-    <TresCanvas @click="() => counter = (counter + 1) % 10" :style="{
+    <TresCanvas @click="increment" :style="{
       background: 'white', 
       width: 'unset', 
       height: 'unset', 

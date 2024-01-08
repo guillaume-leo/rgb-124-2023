@@ -1,52 +1,59 @@
 
 
 <script setup>
-import  { AnimationUtils, LoopOnce }  from "three"
-const { scene: model, nodes, materials, animations } = await useGLTF('AnimationLogov4.glb')
+import  {  LoopOnce }  from "three"
 
-materials[''].roughness = 0
-const { actions, mixer } = useAnimations(animations, model)
-
-const clips = [
-  actions['LIGNE_DOWN|CINEMA_4D_Main|Layer0'].getClip(),
-  actions['LIGNE_TOP|CINEMA_4D_Main|Layer0'].getClip(),
-  actions['Neutre|CINEMA_4D_Main|Layer0'].getClip(),
-  actions['cube_center|CINEMA_4D_Main|Layer0'].getClip(),
-  actions['fleche_down|CINEMA_4D_Main|Layer0'].getClip(),
-  actions['fleche_down|CINEMA_4D_Main|Layer0'].getClip(),
-  actions['model_split|CINEMA_4D_Main|Layer0'].getClip(),
+const shapes = [
+await useGLTF('3d/shape_00.glb'),
+await useGLTF('3d/shape_01.glb'),
+await useGLTF('3d/shape_02.glb'),
+await useGLTF('3d/shape_03.glb'),
+await useGLTF('3d/shape_04.glb'),
+await useGLTF('3d/shape_05.glb'),
+await useGLTF('3d/shape_06.glb'),
+await useGLTF('3d/shape_07.glb'),
+await useGLTF('3d/shape_08.glb'),
+await useGLTF('3d/shape_09.glb')
 ]
 
-const parts = []
-
-for (let i = 0; i < 10; i++) {
-  const startAt = i * 30 + 1
-  const endAt = startAt + 31
-  let cuttedClips = clips.map(clip => {
-    const action = mixer.clipAction( AnimationUtils.subclip(clip, 'part_' + i, startAt, endAt) )
-    action.setLoop(LoopOnce) 
-    action.clampWhenFinished = true;
-    return action
-  })
-  parts.push(cuttedClips)
-}
-
 const counter = useState('counter')
+const is_animating = useState('is_animating', () => false)
 
-watch(counter, (newVal, previousVal) => {
-  parts[previousVal].map(p => p.fadeOut(0))
-  parts[newVal].map(p => {
-    p.reset()
-    p.play()
-  })
+shapes.forEach(shape => {
+  shape.materials[''].roughness = 0
 })
 
-onMounted(() => {
-  parts[9].map(p => p.play())
+watch(counter, (newVal, prevVal) => {
+  animate(newVal, prevVal)
+  // shapes.map(shape => shape.materials[''].visible = false)
+  // shapes[newVal].materials[''].visible = true
+})
+
+const animate = (newVal, prevVal) => {
+  is_animating.value = true
+    if (prevVal) {
+      const { actions: prevActions } = useAnimations(shapes[prevVal].animations, shapes[0].scene)
+      Object.values(prevActions).map(action => {
+      action.fadeOut(1)
+
+    })
+    } 
+    const { actions } = useAnimations(shapes[newVal].animations, shapes[0].scene)
+    Object.values(actions).map(action => {
+      action.setLoop(LoopOnce)
+      action.clampWhenFinished = true;
+      action.play()
+    })
+
+  setTimeout(() => is_animating.value = false, 1000)
+}
+
+onMounted(() =>{
+  animate(9)
 })
 
 </script>
 
 <template>
-  <primitive :object="model"/>
+    <primitive  :object="shapes[0].scene"/>
 </template>
