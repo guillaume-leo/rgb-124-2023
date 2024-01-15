@@ -22,6 +22,8 @@
     "@tresjs/cientos": "^3.7.0",
     "@tresjs/nuxt": "^2.0.1",
     "@tresjs/post-processing": "^0.7.0",
-    "three": "^0.160.0"
+    "three": "^0.160.0",
+    "video.js": "^8.9.0",
+    "vue-collapsed": "^1.3.0"
   }
 }
