@@ -29,7 +29,7 @@
         <Environment files="environment.hdr" />
       </Suspense>
 
-      <Levioso :speed="8" rotation-factor="0.125" float-factor="0.75">
+      <Levioso :speed="8" rotation-factor="0.125" float-factor="0.85">
         <Suspense>
           <Shape/>
         </Suspense>
