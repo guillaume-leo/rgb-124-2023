@@ -32,5 +32,8 @@ const handleExpand = () => {
 button {
   all: unset;
   cursor: pointer;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 </style>
