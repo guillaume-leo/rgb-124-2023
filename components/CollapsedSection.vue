@@ -68,7 +68,7 @@ button {
 
 .projects {
   background-color: #ff0000;
-  background-image: url("banners/projects_down.png");
+  background-image: url("/banners/projects_down.png");
   background-size: contain;
   background-repeat: repeat-x;
   min-height: 100%;
