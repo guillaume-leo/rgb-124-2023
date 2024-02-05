@@ -6,25 +6,44 @@
       </div>
       <div class="hero__text">ALEX GD BLABALBA</div>
     </div>
-    <CollapsedSection>
+    <CollapsedSection type="projects">
       <template #videos>
-        <div v-if="projects" v-for="video in projects" class="video">
-          <p>{{ video.HOME_TITLE }}</p>
-          <video-player
-            :options="{
-              autoplay: true,
-              controls: false,
-              muted: true,
-              loop: true,
-              sources: [
-                {
-                  src: video.HLS,
-                  type: 'application/x-mpegURL',
-                },
-              ],
-            }"
-          />
-        </div>
+        <video-player
+          v-if="projects"
+          v-for="video in projects"
+          :title="video.HOME_TITLE"
+          :options="{
+            autoplay: true,
+            controls: false,
+            loadingSpinner: false,
+            muted: true,
+            loop: true,
+            playsinline: true,
+            preload: 'metadata',
+            disablePictureInPicture: true,
+            html5: {
+              vhs: {
+                overrideNative: true,
+                limitRenditionByPlayerDimensions: false,
+                useDevicePixelRatio: true,
+                experimentalLLHLS: true,
+                experimentalBufferBasedABR: true,
+                liveSyncDuration: 2.5,
+                maxLiveSyncPlaybackRate: 1.1,
+              },
+            },
+            // fluid: true,
+            // aspectRatio: '1:1',
+            responsive: true,
+            suggestedQuality: 'hd',
+            sources: [
+              {
+                src: video.HLS,
+                type: 'application/x-mpegURL',
+              },
+            ],
+          }"
+        />
       </template>
     </CollapsedSection>
   </div>
@@ -45,7 +64,6 @@ const shorts = ref(videos.filter((video) => video.CATEGORY === 2));
   font-family: "Saira", sans-serif;
   &__hero {
     max-width: 100%;
-    outline: 1px black solid;
   }
   &__section {
     max-height: 40rem;
@@ -66,14 +84,6 @@ const shorts = ref(videos.filter((video) => video.CATEGORY === 2));
   }
 }
 
-.videos {
-  display: flex;
-  flex-direction: column;
-  min-height: 20rem;
-  &__item {
-    min-height: 10rem;
-  }
-}
 .hero {
   min-height: 20rem;
   display: none;
